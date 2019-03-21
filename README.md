@@ -1,45 +1,77 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Simple Spreadsheet
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+## Description
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+This is a simple spreadsheet that allows an end user to perform some basic spreadsheet operation (i.e. sum).
 
----
+## Features
+In a nutshell, the program has the following features:
+* Create a new spread sheet 
+* Add numbers in different cells and perform some calculation on top of specific row or column
+* Quit
 
-## Edit a file
+## Run the application
+***TODO: To complete***
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Command description
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+|Command            |Description        |
+|-------------------|-------------------|
+|C w h              |Should create a new spread sheet of width w and height h (i.e. the spreadsheet can hold w * h amount of cells).|
+|N x1 y1 v1         |Should insert a number in specified cell (x1,y1)|
+|S x1 y1 x2 y2 x3 y3|Should perform sum on top of all cells from x1 y1 to x2 y2 and store the result in x3 y3|
+|Q                  |Should quit the program.|
 
----
+Assume each cell will allocate at most 3 characters, thus numbers given here should be right justified accordingly.
 
-## Create a file
+## Sample I/O
 
-Next, you’ll add a new file to this repository.
+enter command: C 20 4
+```
+------------------------------------------------------------------
+|                                                                 |
+|                                                                 |
+|                                                                 |
+|                                                                 |
+------------------------------------------------------------------
+```
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+enter command: N 1 2 2
+```
+------------------------------------------------------------------
+|                                                                 |
+|  2                                                              |
+|                                                                 |
+|                                                                 |
+------------------------------------------------------------------
+```
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+enter command: N 1 3 4
+```
+------------------------------------------------------------------
+|                                                                 |
+|  2                                                              |
+|  4                                                              |
+|                                                                 |
+------------------------------------------------------------------
+```
 
----
+enter command: S 1 2 1 3 1 4
+```
+------------------------------------------------------------------
+|                                                                 |
+|  2                                                              |
+|  4                                                              |
+|  6                                                              |
+------------------------------------------------------------------
+```
 
-## Clone a repository
+enter command: Q
+```
+```
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+## Testing
+***TODO: To complete***
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+## Design consideration
+***TODO: To complete***
