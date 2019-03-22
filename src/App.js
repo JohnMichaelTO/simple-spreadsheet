@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import InputCommand from './components/InputCommand';
+import Spreadsheet from './components/Spreadsheet';
 
 class App extends Component {
   state = {
-    fields: {}
+    fields: {
+      command: ''
+    }
   };
 
   onChange = updatedValue => {
@@ -23,6 +26,12 @@ class App extends Component {
         <p>
           {JSON.stringify(this.state.fields, null, 2)}
         </p>
+        <p>
+          {JSON.stringify(this.state.fields.command.match(/^(C\s)([0-9]+)\s([0-9]+)$/), null, 2)}
+        </p>
+        <pre>
+        <Spreadsheet />
+        </pre>
       </div>
     );
   }
