@@ -15,32 +15,33 @@ class InputCommand extends React.Component {
         });
     };
 
+    isCreatingSpreadsheetCommandValid = command => /^C\s[0-9]+\s[0-9]+$/.test(command); // Regex matching the command: C w h
+    isInsertingNumberCommandValid = command => /^N\s[0-9]+\s[0-9]+\s[0-9]+$/.test(command); // Regex matching the command: N x1 y1 v1
+    isSumCommandValid = command => /^S\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+$/.test(command); // Regex matching the command: S x1 y1 x2 y2 x3 y3
+    isQuitCommandValid = command => /^Q$/.test(command); // Regex matching the command: Q
+
     validate = () => {
         let isError = true;
         const errors = {
             commandError: "This command doesn't exist"
         };
 
-        // Regex matching the command: C w h
-        if (/^C\s[0-9]+\s[0-9]+$/.test(this.state.command)) {
+        if (this.isCreatingSpreadsheetCommandValid(this.state.command)) {
             isError = false;
             errors.commandError = "";
         }
 
-        // Regex matching the command: N x1 y1 v1
-        if (/^N\s[0-9]+\s[0-9]+\s[0-9]+$/.test(this.state.command)) {
+        if (this.isInsertingNumberCommandValid(this.state.command)) {
             isError = false;
             errors.commandError = "";
         }
 
-        // Regex matching the command: S x1 y1 x2 y2 x3 y3
-        if (/^S\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+\s[0-9]+$/.test(this.state.command)) {
+        if (this.isSumCommandValid(this.state.command)) {
             isError = false;
             errors.commandError = "";
         }
 
-        // Regex matching the command: Q
-        if (/^Q$/.test(this.state.command)) {
+        if (this.isQuitCommandValid(this.state.command)) {
             isError = false;
             errors.commandError = "";
         }
