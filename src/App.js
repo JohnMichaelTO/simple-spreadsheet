@@ -24,13 +24,13 @@ class App extends Component {
       <div className="App">
         <InputCommand onChange={fields => this.onChange(fields)} />
         <p>
-          {JSON.stringify(this.state.fields, null, 2)}
+          App: {JSON.stringify(this.state.fields, null, 2)}
         </p>
         <p>
-          {JSON.stringify(this.state.fields.command.match(/^(C\s)([0-9]+)\s([0-9]+)$/), null, 2)}
+          {JSON.stringify((/^(?<command>C\s)(?<width>[0-9]+)\s(?<height>[0-9]+)$/.exec(this.state.fields.command)), null, 2)}
         </p>
         <pre>
-        <Spreadsheet />
+        <Spreadsheet command={this.state.fields.command} />
         </pre>
       </div>
     );

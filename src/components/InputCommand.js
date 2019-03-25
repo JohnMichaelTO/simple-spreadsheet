@@ -9,7 +9,7 @@ class InputCommand extends React.Component {
     };
 
     change = e => {
-        this.props.onChange({ [e.target.name]: e.target.value });
+        //this.props.onChange({ [e.target.name]: e.target.value });
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -56,7 +56,7 @@ class InputCommand extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
-        // this.props.onSubmit(this.state);
+        //this.props.onSubmit(this.state);
         const err = this.validate();
         if (!err) {
             // clear form
@@ -65,7 +65,7 @@ class InputCommand extends React.Component {
                 commandError: ''
             });
             this.props.onChange({
-                command: ''
+                command: this.state.command
             });
         }
     };
@@ -84,7 +84,12 @@ class InputCommand extends React.Component {
                 <Button variant="contained" color="primary" onClick={e => this.onSubmit(e)}>
                     Submit
                 </Button>
+
+                <p>
+                    InputCommand: {JSON.stringify(this.state.command, null, 2)}
+                </p>
             </form>
+            
         );
     }
 }
