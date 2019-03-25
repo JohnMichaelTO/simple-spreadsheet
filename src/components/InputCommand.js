@@ -72,7 +72,7 @@ class InputCommand extends React.Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={e => this.onSubmit(e)}>
                 <TextField
                     name="command"
                     label="Command"
