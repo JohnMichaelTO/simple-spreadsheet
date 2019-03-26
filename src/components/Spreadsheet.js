@@ -7,7 +7,7 @@ class Spreadsheet extends React.Component {
             request: this.props.request,
             width: 0,
             height: 0,
-            spreadsheet: [[],[]]
+            spreadsheet: [[], []]
         };
     }
     
@@ -33,6 +33,8 @@ class Spreadsheet extends React.Component {
                     break;
                 case 'Q':
                     console.log('Quit action');
+                    tempState.width = 0;
+                    tempState.height = 0;
                     break;
                 default:
                     console.log("Action doesn't exist");
