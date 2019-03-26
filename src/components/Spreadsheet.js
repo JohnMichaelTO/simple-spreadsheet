@@ -59,8 +59,48 @@ class Spreadsheet extends React.Component {
         //this.setState({spreadsheet[x][y] = value});
     };
 
+    formatNumberDisplay = number => {
+        const maxCharacterPerCell = 3;
+        const numberOfSpace = maxCharacterPerCell - number.length;
+        let formattedNumber = "";
+
+        for(let i = 0; i < numberOfSpace; i++) {
+            formattedNumber += " ";
+        }
+        formattedNumber += number;
+
+        return formattedNumber;
+    };
+
     show = () => {
-        return JSON.stringify((this.state), null, 2);
+        let output = "";
+
+        if(this.state.width > 0 && this.state.height > 0) {
+            // [BEGIN] First line to make the table
+            for(let i = 0; i < this.state.width; i++) {
+                output += "---";
+            }
+            output += "--\n";
+            // [END] First line to make the table
+
+            for(let y = 0; y < this.state.height; y++) {
+                output += "|";
+                for(let x = 0; x < this.state.width; x++)
+                {
+                    output += this.formatNumberDisplay("3");
+                }
+                output += "|\n";
+            }
+
+            // [BEGIN] Last line to make the table
+            for(let i = 0; i < this.state.width; i++) {
+                output += "---";
+            }
+            output += "--\n";
+            // [END] Last line to make the table
+        }
+        console.log(output);
+        return output;
     };
 
     render() {
