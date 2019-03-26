@@ -3,7 +3,7 @@ import React from 'react';
 class Spreadsheet extends React.Component {
     constructor(props) {
         super(props);
-        this.spreadsheet = [[], []];
+        this.spreadsheet = null;
         this.width = 0;
         this.height = 0;
         this.state = {
@@ -25,6 +25,7 @@ class Spreadsheet extends React.Component {
                     break;
                 case 'N':
                     console.log('Insert action');
+                    this.insert(request.x, request.y, request.value);
                     break;
                 case 'S':
                     console.log('Sum action');
@@ -33,6 +34,7 @@ class Spreadsheet extends React.Component {
                     console.log('Quit action');
                     this.width = 0;
                     this.height = 0;
+                    this.spreadsheet = null;
                     break;
                 default:
                     console.log("Action doesn't exist");
@@ -48,11 +50,29 @@ class Spreadsheet extends React.Component {
     create = (width, height) => {
         this.width = width;
         this.height = height;
-        console.log("width: " + width + ", height: " + height);
+
+        this.spreadsheet = new Array(this.height);
+        for(let y = 0; y < this.height; y++) {
+            this.spreadsheet[y] = new Array(this.width);
+            for(let x = 0; x < this.width; x++) {
+                this.spreadsheet[y][x] = '';
+            }
+        }
+
+        console.log("Create a spreadsheet with width: " + width + ", height: " + height);
     };
 
     insert = (x, y, value) => {
-        //this.setState({spreadsheet[x][y] = value});
+        // Convert cell coordinates with -1 as the starting index for the user is 1
+        x -= 1;
+        y -= 1;
+
+        if(x >= 0 && x < this.width && y >= 0 && y < this.height) {
+            this.spreadsheet[y][x] = value;
+            console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
+        } else {
+            console.log("Error: Can't insert");
+        }
     };
 
     formatNumberDisplay = number => {
@@ -71,7 +91,7 @@ class Spreadsheet extends React.Component {
     show = () => {
         let output = "";
 
-        if(this.width > 0 && this.height > 0) {
+        if(this.width > 0 && this.height > 0 && this.spreadsheet !== null) {
             // [BEGIN] First line to make the table
             for(let i = 0; i < this.width; i++) {
                 output += "---";
@@ -83,7 +103,7 @@ class Spreadsheet extends React.Component {
                 output += "|";
                 for(let x = 0; x < this.width; x++)
                 {
-                    output += this.formatNumberDisplay("3");
+                    output += this.formatNumberDisplay(this.spreadsheet[y][x]);
                 }
                 output += "|\n";
             }
