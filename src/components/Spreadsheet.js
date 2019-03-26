@@ -17,7 +17,7 @@ class Spreadsheet extends React.Component {
     };
 
     show = () => {
-        return "width:" + this.state.width + ", height:" + this.state.height + ", spreadsheet:" + this.state.spreadsheet + ", command: " + this.props.command;
+        return "width:" + this.state.width + ", height:" + this.state.height + ", spreadsheet:" + this.state.spreadsheet + ", " + JSON.stringify((this.props.command), null, 2);
     };
 
     render() {

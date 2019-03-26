@@ -6,11 +6,12 @@ import Spreadsheet from './components/Spreadsheet';
 class App extends Component {
   state = {
     fields: {
-      command: ''
+      command: '',
+      request: {}
     }
   };
 
-  onChange = updatedValue => {
+  onSubmit = updatedValue => {
     this.setState({
       fields: {
         ...this.state.fields,
@@ -22,15 +23,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <InputCommand onChange={fields => this.onChange(fields)} />
+        <InputCommand onSubmit={fields => this.onSubmit(fields)} />
         <p>
           App: {JSON.stringify(this.state.fields, null, 2)}
         </p>
-        <p>
-          {JSON.stringify((/^(?<command>C\s)(?<width>[0-9]+)\s(?<height>[0-9]+)$/.exec(this.state.fields.command)), null, 2)}
-        </p>
         <pre>
-        <Spreadsheet command={this.state.fields.command} />
+        <Spreadsheet command={this.state.fields} />
         </pre>
       </div>
     );

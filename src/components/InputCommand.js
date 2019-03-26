@@ -5,13 +5,39 @@ import Button from '@material-ui/core/Button';
 class InputCommand extends React.Component {
     state = {
         command: '',
-        commandError: ''
+        commandError: '',
+        request: {}
     };
 
     change = e => {
         //this.props.onChange({ [e.target.name]: e.target.value });
+        const command = e.target.value;
+        let request = {};
+
+        const createRegex = this.isCreatingSpreadsheetCommandValid(command);
+        if (createRegex != null) {
+            request = createRegex.groups;
+        }
+
+        const insertRegex = this.isInsertingNumberCommandValid(command);
+        if (insertRegex != null) {
+            request = insertRegex.groups;
+        }
+
+        const sumRegex = this.isSumCommandValid(command);
+        if (sumRegex != null) {
+            request = sumRegex.groups;
+        }
+
+        const quitRegex = this.isQuitCommandValid(command)
+        if (quitRegex != null) {
+            request = quitRegex.groups;
+        }
+
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            request,
+            commandError: ''
         });
     };
 
@@ -26,26 +52,22 @@ class InputCommand extends React.Component {
             commandError: "This command doesn't exist"
         };
 
-        const createRegex = this.isCreatingSpreadsheetCommandValid(this.state.command);
-        if (createRegex != null) {
+        if (this.isCreatingSpreadsheetCommandValid(this.state.command) != null) {
             isError = false;
             errors.commandError = "";
         }
 
-        const insertRegex = this.isInsertingNumberCommandValid(this.state.command);
-        if (insertRegex != null) {
+        if (this.isInsertingNumberCommandValid(this.state.command) != null) {
             isError = false;
             errors.commandError = "";
         }
 
-        const sumRegex = this.isSumCommandValid(this.state.command);
-        if (sumRegex != null) {
+        if (this.isSumCommandValid(this.state.command) != null) {
             isError = false;
             errors.commandError = "";
         }
 
-        const quitRegex = this.isQuitCommandValid(this.state.command)
-        if (quitRegex != null) {
+        if (this.isQuitCommandValid(this.state.command) != null) {
             isError = false;
             errors.commandError = "";
         }
@@ -54,7 +76,8 @@ class InputCommand extends React.Component {
             ...this.state,
             ...errors
         });
-
+        console.log(this.state);
+        
         return isError;
     };
 
@@ -66,10 +89,11 @@ class InputCommand extends React.Component {
             // clear form
             this.setState({
                 command: '',
-                commandError: ''
+                commandError: '',
+                request: {}
             });
-            this.props.onChange({
-                command: this.state.command
+            this.props.onSubmit({
+                ...this.state
             });
         }
     };
