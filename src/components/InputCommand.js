@@ -85,7 +85,7 @@ class InputCommand extends React.Component {
                     error={this.state.commandError !== ""}
                     helperText={this.state.commandError}
                 />
-                <Button variant="contained" color="primary" onClick={e => this.onSubmit(e)}>
+                <Button variant="contained" color="primary" type="submit">
                     Submit
                 </Button>
 
