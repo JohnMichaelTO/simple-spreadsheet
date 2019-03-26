@@ -3,11 +3,11 @@ import React from 'react';
 class Spreadsheet extends React.Component {
     constructor(props) {
         super(props);
+        this.spreadsheet = [[], []];
+        this.width = 0;
+        this.height = 0;
         this.state = {
-            request: this.props.request,
-            width: 0,
-            height: 0,
-            spreadsheet: [[], []]
+            request: this.props.request
         };
     }
     
@@ -20,8 +20,6 @@ class Spreadsheet extends React.Component {
         if(this.state.request !== request) {
             switch (request.action) {
                 case 'C':
-                    tempState.width = request.width;
-                    tempState.height = request.height;
                     console.log('Create action');
                     this.create(request.width, request.height);
                     break;
@@ -33,8 +31,8 @@ class Spreadsheet extends React.Component {
                     break;
                 case 'Q':
                     console.log('Quit action');
-                    tempState.width = 0;
-                    tempState.height = 0;
+                    this.width = 0;
+                    this.height = 0;
                     break;
                 default:
                     console.log("Action doesn't exist");
@@ -48,13 +46,9 @@ class Spreadsheet extends React.Component {
     }
 
     create = (width, height) => {
+        this.width = width;
+        this.height = height;
         console.log("width: " + width + ", height: " + height);
-        /*
-        this.setState({
-            width,
-            height
-        });
-        */
     };
 
     insert = (x, y, value) => {
@@ -77,17 +71,17 @@ class Spreadsheet extends React.Component {
     show = () => {
         let output = "";
 
-        if(this.state.width > 0 && this.state.height > 0) {
+        if(this.width > 0 && this.height > 0) {
             // [BEGIN] First line to make the table
-            for(let i = 0; i < this.state.width; i++) {
+            for(let i = 0; i < this.width; i++) {
                 output += "---";
             }
             output += "--\n";
             // [END] First line to make the table
 
-            for(let y = 0; y < this.state.height; y++) {
+            for(let y = 0; y < this.height; y++) {
                 output += "|";
-                for(let x = 0; x < this.state.width; x++)
+                for(let x = 0; x < this.width; x++)
                 {
                     output += this.formatNumberDisplay("3");
                 }
@@ -95,7 +89,7 @@ class Spreadsheet extends React.Component {
             }
 
             // [BEGIN] Last line to make the table
-            for(let i = 0; i < this.state.width; i++) {
+            for(let i = 0; i < this.width; i++) {
                 output += "---";
             }
             output += "--\n";
