@@ -33,9 +33,7 @@ class Spreadsheet extends React.Component {
                     break;
                 case 'Q':
                     console.log('Quit action');
-                    this.width = 0;
-                    this.height = 0;
-                    this.spreadsheet = null;
+                    this.quit();
                     break;
                 default:
                     console.log("Action doesn't exist");
@@ -105,6 +103,12 @@ class Spreadsheet extends React.Component {
         console.log("Error: Can't sum up");
         // TODO: Handling error
         return false;
+    };
+
+    quit = () => {
+        this.width = 0;
+        this.height = 0;
+        this.spreadsheet = null;
     };
 
     isCoordinatesInBoundaries = (x, y) => {
