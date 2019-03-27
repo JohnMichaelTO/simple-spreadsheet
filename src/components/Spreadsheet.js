@@ -13,9 +13,6 @@ class Spreadsheet extends React.Component {
     
     componentWillReceiveProps(nextProps) {
         let request = nextProps.request;
-        let tempState = {
-            ...this.state
-        };
 
         if(this.state.request !== request) {
             switch (request.action) {
@@ -40,7 +37,6 @@ class Spreadsheet extends React.Component {
             }
 
             this.setState({
-                ...tempState,
                 request: nextProps.request
             });
         }
