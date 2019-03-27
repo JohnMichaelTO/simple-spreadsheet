@@ -29,6 +29,7 @@ class Spreadsheet extends React.Component {
                     break;
                 case 'S':
                     console.log('Sum action');
+                    this.sum(request.x1, request.y1, request.x2, request.y2, request.x3, request.y3);
                     break;
                 case 'Q':
                     console.log('Quit action');
@@ -70,7 +71,7 @@ class Spreadsheet extends React.Component {
     };
 
     insert = (x, y, value) => {
-        if(x >= 0 && x < this.width && y >= 0 && y < this.height) {
+        if(this.isCoordinatesInBoundaries(x, y)) {
             this.spreadsheet[y][x] = value;
             console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
             return true;
@@ -78,6 +79,36 @@ class Spreadsheet extends React.Component {
 
         console.log("Error: Can't insert");
         // TODO: Handling error
+        return false;
+    };
+
+    sum = (x1, y1, x2, y2, x3, y3) => {
+        if(this.isCoordinatesInBoundaries(x1, y1)
+            && this.isCoordinatesInBoundaries(x2, y2)
+            && this.isCoordinatesInBoundaries(x3, y3)
+            && x1 <= x2
+            && y1 <= y2) {
+                
+            let totalSum = 0;
+            for(let y = y1; y <= y2; y++) {
+                for(let x = x1; x <= x2; x++) {
+                    totalSum += Number(this.spreadsheet[y][x]);
+                    console.log("Sum up = " + totalSum + " - adding " + this.spreadsheet[y][x] + " (spreadsheet[" + y + "][" + x + "])");
+                }
+            }
+            
+            this.spreadsheet[y3][x3] = totalSum.toString();
+            console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
+            return true;
+        }
+
+        console.log("Error: Can't sum up");
+        // TODO: Handling error
+        return false;
+    };
+
+    isCoordinatesInBoundaries = (x, y) => {
+        if(x >= 0 && x < this.width && y >= 0 && y < this.height) return true;
         return false;
     };
 
