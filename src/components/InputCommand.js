@@ -22,11 +22,21 @@ class InputCommand extends React.Component {
         const insertRegex = this.isInsertingNumberCommandValid(command);
         if (insertRegex != null) {
             request = insertRegex.groups;
+            // Convert cell coordinates with -1 as the starting index for the user is 1
+            request.x -= 1;
+            request.y -= 1;
         }
 
         const sumRegex = this.isSumCommandValid(command);
         if (sumRegex != null) {
             request = sumRegex.groups;
+            // Convert cell coordinates with -1 as the starting index for the user is 1
+            request.x1 -= 1;
+            request.y1 -= 1;
+            request.x2 -= 1;
+            request.y2 -= 1;
+            request.x3 -= 1;
+            request.y3 -= 1;
         }
 
         const quitRegex = this.isQuitCommandValid(command)

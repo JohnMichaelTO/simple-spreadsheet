@@ -48,31 +48,37 @@ class Spreadsheet extends React.Component {
     }
 
     create = (width, height) => {
-        this.width = width;
-        this.height = height;
+        if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
+            this.width = width;
+            this.height = height;
 
-        this.spreadsheet = new Array(this.height);
-        for(let y = 0; y < this.height; y++) {
-            this.spreadsheet[y] = new Array(this.width);
-            for(let x = 0; x < this.width; x++) {
-                this.spreadsheet[y][x] = '';
+            this.spreadsheet = new Array(this.height);
+            for(let y = 0; y < this.height; y++) {
+                this.spreadsheet[y] = new Array(this.width);
+                for(let x = 0; x < this.width; x++) {
+                    this.spreadsheet[y][x] = '';
+                }
             }
+
+            console.log("Create a spreadsheet with width: " + width + ", height: " + height);
+            return true;
         }
 
-        console.log("Create a spreadsheet with width: " + width + ", height: " + height);
+        console.log("Error: Can't create a spreadsheet as there is currently a spreadsheet opened");
+        // TODO: Handling error
+        return false;
     };
 
     insert = (x, y, value) => {
-        // Convert cell coordinates with -1 as the starting index for the user is 1
-        x -= 1;
-        y -= 1;
-
         if(x >= 0 && x < this.width && y >= 0 && y < this.height) {
             this.spreadsheet[y][x] = value;
             console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
-        } else {
-            console.log("Error: Can't insert");
+            return true;
         }
+
+        console.log("Error: Can't insert");
+        // TODO: Handling error
+        return false;
     };
 
     formatNumberDisplay = number => {
