@@ -88,3 +88,10 @@ it('show()', () => {
                                     "|      |\n" +
                                     "--------\n");
 });
+
+it('isValueWithinLimits()', () => {
+    let spreadsheet = new Spreadsheet();
+    expect(spreadsheet.isValueWithinLimits(10)).toBeTruthy();
+    expect(spreadsheet.isValueWithinLimits(100)).toBeTruthy();
+    expect(spreadsheet.isValueWithinLimits(1000)).not.toBeTruthy();
+});

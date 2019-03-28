@@ -158,7 +158,7 @@ The **App** component is the result of both **InputCommand** and **Spreadsheet**
 The current limitations are the following:
 * One cell is represented by 3 characters
 * A sum can not be performed when the result is above 999
-* A number above 999 is not allowed
+* Only numbers between 0 and 999 are allowed
 
 ## Built With
 

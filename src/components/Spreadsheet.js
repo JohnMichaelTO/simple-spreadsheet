@@ -18,15 +18,15 @@ class Spreadsheet extends React.Component {
             switch (request.action) {
                 case 'C':
                     console.log('Create action');
-                    this.create(request.width, request.height);
+                    this.create(Number(request.width), Number(request.height));
                     break;
                 case 'N':
                     console.log('Insert action');
-                    this.insert(request.x, request.y, request.value);
+                    this.insert(Number(request.x), Number(request.y), Number(request.value));
                     break;
                 case 'S':
                     console.log('Sum action');
-                    this.sum(request.x1, request.y1, request.x2, request.y2, request.x3, request.y3);
+                    this.sum(Number(request.x1), Number(request.y1), Number(request.x2), Number(request.y2), Number(request.x3), Number(request.y3));
                     break;
                 case 'Q':
                     console.log('Quit action');
@@ -44,6 +44,11 @@ class Spreadsheet extends React.Component {
 
     create = (width, height) => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
+            if(width === 0 || height === 0) {
+                console.log("Error: Can't create a spreadsheet with width or height = 0");
+                // TODO: Handling error
+                return false;
+            }
             this.width = width;
             this.height = height;
 
@@ -65,7 +70,7 @@ class Spreadsheet extends React.Component {
     };
 
     insert = (x, y, value) => {
-        if(this.isCoordinatesInBoundaries(x, y)) {
+        if(this.isCoordinatesInBoundaries(x, y) && this.isValueWithinLimits(value)) {
             this.spreadsheet[y][x] = value;
             console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
             return true;
@@ -91,9 +96,14 @@ class Spreadsheet extends React.Component {
                 }
             }
             
-            this.spreadsheet[y3][x3] = totalSum;
-            console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
-            return true;
+            if(this.isValueWithinLimits(totalSum)) {
+                this.spreadsheet[y3][x3] = totalSum;
+                console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
+                return true;
+            } else {
+                console.log("Error: Value exceeded limits (" + totalSum + ")");
+                return false;
+            }
         }
 
         console.log("Error: Can't sum up");
@@ -124,6 +134,11 @@ class Spreadsheet extends React.Component {
         formattedNumber += number;
 
         return formattedNumber;
+    };
+
+    isValueWithinLimits = value => {
+        if(value >= 0 && value <= 999) return true;
+        return false;
     };
 
     show = () => {
