@@ -1,12 +1,46 @@
 import React from 'react';
 import Spreadsheet from './Spreadsheet';
 
-it('Creating spreadsheet', () => {
+it('Creating valid spreadsheet', () => {
     let spreadsheet = new Spreadsheet();
-    const creationResult = spreadsheet.create(5, 4);
+    let creationResult = spreadsheet.create(5, 4);
     expect(creationResult).toBeTruthy();
     expect(spreadsheet.width).toEqual(5);
     expect(spreadsheet.height).toEqual(4);
+    expect(spreadsheet.spreadsheet).not.toBeNull();
+});
+
+it('Creating invalid spreadsheet', () => {
+    let spreadsheet = new Spreadsheet();
+    let creationResult = spreadsheet.create(0, 0);
+    expect(creationResult).not.toBeTruthy();
+    expect(spreadsheet.width).toEqual(0);
+    expect(spreadsheet.height).toEqual(0);
+    expect(spreadsheet.spreadsheet).toBeNull();
+});
+
+it('Creating invalid spreadsheet with negative values', () => {
+    let spreadsheet = new Spreadsheet();
+    let creationResult = spreadsheet.create(-5, -6);
+    expect(creationResult).not.toBeTruthy();
+    expect(spreadsheet.width).toEqual(0);
+    expect(spreadsheet.height).toEqual(0);
+    expect(spreadsheet.spreadsheet).toBeNull();
+});
+
+it('Creating 2 spreadsheets in a row which is invalid', () => {
+    let spreadsheet = new Spreadsheet();
+    let creationResult = spreadsheet.create(5, 4);
+    expect(creationResult).toBeTruthy();
+    expect(spreadsheet.width).toEqual(5);
+    expect(spreadsheet.height).toEqual(4);
+    expect(spreadsheet.spreadsheet).not.toBeNull();
+
+    creationResult = spreadsheet.create(5, 9);
+    expect(creationResult).not.toBeTruthy();
+    expect(spreadsheet.width).toEqual(5);
+    expect(spreadsheet.height).toEqual(4);
+    expect(spreadsheet.spreadsheet).not.toBeNull();
 });
 
 it('isCoordinatesInBoundaries()', () => {

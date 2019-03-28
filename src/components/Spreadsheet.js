@@ -44,8 +44,8 @@ class Spreadsheet extends React.Component {
 
     create = (width, height) => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
-            if(width === 0 || height === 0) {
-                console.log("Error: Can't create a spreadsheet with width or height = 0");
+            if(width <= 0 || height <= 0) {
+                console.log("Error: The spreadsheet's width and height should be above 0");
                 // TODO: Handling error
                 return false;
             }
