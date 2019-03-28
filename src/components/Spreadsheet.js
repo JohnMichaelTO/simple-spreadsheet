@@ -11,10 +11,10 @@ class Spreadsheet extends React.Component {
         };
     }
     
-    componentWillReceiveProps(nextProps) {
-        let request = nextProps.request;
+      componentDidUpdate(prevProps) {
+        let request = this.props.request;
 
-        if(this.state.request !== request) {
+        if(request !== prevProps.request) {
             switch (request.action) {
                 case 'C':
                     console.log('Create action');
@@ -37,7 +37,7 @@ class Spreadsheet extends React.Component {
             }
 
             this.setState({
-                request: nextProps.request
+                request: request
             });
         }
     }
