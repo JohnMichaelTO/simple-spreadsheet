@@ -11,7 +11,7 @@ class Spreadsheet extends React.Component {
         };
     }
     
-      componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         let request = this.props.request;
 
         if(request !== prevProps.request) {
