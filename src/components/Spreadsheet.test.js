@@ -208,13 +208,22 @@ it('Sum over columns with 1 empty cell in between', () => {
     expect(spreadsheet.spreadsheet[1][4]).toEqual(11);
 });
 
-it('Quit', () => {
+it('Quit valid', () => {
     let spreadsheet = new Spreadsheet();
     const creationResult = spreadsheet.create(5, 5);
     expect(creationResult).toBeTruthy();
 
     const quitResult = spreadsheet.quit();
     expect(quitResult).toBeTruthy();
+    expect(spreadsheet.width).toEqual(0);
+    expect(spreadsheet.height).toEqual(0);
+    expect(spreadsheet.spreadsheet).toBeNull();
+});
+
+it('Quit invalid', () => {
+    let spreadsheet = new Spreadsheet();
+    const quitResult = spreadsheet.quit();
+    expect(quitResult).not.toBeTruthy();
     expect(spreadsheet.width).toEqual(0);
     expect(spreadsheet.height).toEqual(0);
     expect(spreadsheet.spreadsheet).toBeNull();

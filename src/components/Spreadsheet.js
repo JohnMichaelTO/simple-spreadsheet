@@ -112,9 +112,16 @@ class Spreadsheet extends React.Component {
     };
 
     quit = () => {
+        if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
+            console.log("Error: The spreadsheet doesn't exist");
+            return false;
+        }
+
         this.width = 0;
         this.height = 0;
         this.spreadsheet = null;
+        
+        console.log("Quitting the spreadsheet");
         return true;
     };
 
