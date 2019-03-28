@@ -7,7 +7,7 @@ class Spreadsheet extends React.Component {
         this.width = 0;
         this.height = 0;
         this.state = {
-            request: this.props.request
+            request: { action: ''}
         };
     }
     
@@ -91,7 +91,7 @@ class Spreadsheet extends React.Component {
                 }
             }
             
-            this.spreadsheet[y3][x3] = totalSum.toString();
+            this.spreadsheet[y3][x3] = totalSum;
             console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
             return true;
         }
@@ -105,6 +105,7 @@ class Spreadsheet extends React.Component {
         this.width = 0;
         this.height = 0;
         this.spreadsheet = null;
+        return true;
     };
 
     isCoordinatesInBoundaries = (x, y) => {
@@ -114,7 +115,7 @@ class Spreadsheet extends React.Component {
 
     formatNumberDisplay = number => {
         const maxCharacterPerCell = 3;
-        const numberOfSpace = maxCharacterPerCell - number.length;
+        const numberOfSpace = maxCharacterPerCell - String(number).length;
         let formattedNumber = "";
 
         for(let i = 0; i < numberOfSpace; i++) {
