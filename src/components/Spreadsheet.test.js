@@ -77,3 +77,14 @@ it('formatNumberDisplay()', () => {
     expect(spreadsheet.formatNumberDisplay(12)).toBe(" 12");
     expect(spreadsheet.formatNumberDisplay(1)).toBe("  1");
 });
+
+it('show()', () => {
+    let spreadsheet = new Spreadsheet();
+    const creationResult = spreadsheet.create(2, 2);
+    expect(creationResult).toBeTruthy();
+
+    expect(spreadsheet.show()).toBe("--------\n" +
+                                    "|      |\n" +
+                                    "|      |\n" +
+                                    "--------\n");
+});
