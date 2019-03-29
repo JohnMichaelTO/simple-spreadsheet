@@ -27,9 +27,7 @@ class App extends Component {
         <p>
           App: {JSON.stringify(this.state.fields, null, 2)}
         </p>
-        <pre>
         <Spreadsheet request={this.state.fields.request} />
-        </pre>
       </div>
     );
   }

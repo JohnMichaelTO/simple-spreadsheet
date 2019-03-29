@@ -7,7 +7,8 @@ class Spreadsheet extends React.Component {
         this.width = 0;
         this.height = 0;
         this.state = {
-            request: { action: ''}
+            request: { action: ''},
+            error: ''
         };
     }
     
@@ -15,30 +16,35 @@ class Spreadsheet extends React.Component {
         let request = this.props.request;
 
         if(request !== prevProps.request) {
+            let isValid = false;
+            
             switch (request.action) {
                 case 'C':
                     console.log('Create action');
-                    this.create(Number(request.width), Number(request.height));
+                    isValid = this.create(Number(request.width), Number(request.height));
                     break;
                 case 'N':
                     console.log('Insert action');
-                    this.insert(Number(request.x), Number(request.y), Number(request.value));
+                    isValid = this.insert(Number(request.x), Number(request.y), Number(request.value));
                     break;
                 case 'S':
                     console.log('Sum action');
-                    this.sum(Number(request.x1), Number(request.y1), Number(request.x2), Number(request.y2), Number(request.x3), Number(request.y3));
+                    isValid = this.sum(Number(request.x1), Number(request.y1), Number(request.x2), Number(request.y2), Number(request.x3), Number(request.y3));
                     break;
                 case 'Q':
                     console.log('Quit action');
-                    this.quit();
+                    isValid = this.quit();
                     break;
                 default:
                     console.log("Action doesn't exist");
             }
 
-            this.setState({
-                request: request
-            });
+            if(isValid) {
+                this.setState({
+                    request: request,
+                    error: ''
+                });
+            }
         }
     }
 
@@ -47,6 +53,10 @@ class Spreadsheet extends React.Component {
             if(width <= 0 || height <= 0) {
                 console.log("Error: The spreadsheet's width and height should be above 0");
                 // TODO: Handling error
+
+                this.setState({
+                    error: "Error: The spreadsheet's width and height should be above 0"
+                });
                 return false;
             }
             this.width = width;
@@ -66,6 +76,9 @@ class Spreadsheet extends React.Component {
 
         console.log("Error: Can't create a spreadsheet as there is currently a spreadsheet opened");
         // TODO: Handling error
+        this.setState({
+            error: "Error: Can't create a spreadsheet as there is currently a spreadsheet opened"
+        });
         return false;
     };
 
@@ -78,6 +91,9 @@ class Spreadsheet extends React.Component {
 
         console.log("Error: Can't insert");
         // TODO: Handling error
+        this.setState({
+            error: "Error: Can't insert"
+        });
         return false;
     };
 
@@ -102,18 +118,27 @@ class Spreadsheet extends React.Component {
                 return true;
             } else {
                 console.log("Error: Value exceeded limits (" + totalSum + ")");
+                this.setState({
+                    error: "Error: Value exceeded limits (" + totalSum + ")"
+                });
                 return false;
             }
         }
 
         console.log("Error: Can't sum up");
         // TODO: Handling error
+        this.setState({
+            error: "Error: Can't sum up"
+        });
         return false;
     };
 
     quit = () => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
             console.log("Error: The spreadsheet doesn't exist");
+            this.setState({
+                error: "Error: The spreadsheet doesn't exist"
+            });
             return false;
         }
 
@@ -181,7 +206,12 @@ class Spreadsheet extends React.Component {
 
     render() {
         return (
-            this.show()
+            <div>
+                {this.state.error !== "" ? <p>{this.state.error}</p> : ''}
+                <pre>
+                    {this.show()}
+                </pre>
+            </div>
         );
     }
 }
