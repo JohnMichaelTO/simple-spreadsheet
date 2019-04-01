@@ -6,7 +6,7 @@ import ErrorNotification from './ErrorNotification'
 class InputCommand extends React.Component {
     state = {
         command: '',
-        commandError: '',
+        error: '',
         request: {}
     };
 
@@ -48,48 +48,37 @@ class InputCommand extends React.Component {
         this.setState({
             [e.target.name]: e.target.value,
             request,
-            commandError: ''
+            error: ''
         });
     };
-
+    
     isCreatingSpreadsheetCommandValid = command => /^(?<action>C)\s(?<width>[0-9]+)\s(?<height>[0-9]+)$/.exec(command); // Regex matching the command: C w h
     isInsertingNumberCommandValid = command => /^(?<action>N)\s(?<x>[0-9]+)\s(?<y>[0-9]+)\s(?<value>[0-9]+)$/.exec(command); // Regex matching the command: N x1 y1 v1
     isSumCommandValid = command => /^(?<action>S)\s(?<x1>[0-9]+)\s(?<y1>[0-9]+)\s(?<x2>[0-9]+)\s(?<y2>[0-9]+)\s(?<x3>[0-9]+)\s(?<y3>[0-9]+)$/.exec(command); // Regex matching the command: S x1 y1 x2 y2 x3 y3
     isQuitCommandValid = command => /^(?<action>Q)$/.exec(command); // Regex matching the command: Q
 
     validate = () => {
-        let isError = true;
-        const errors = {
-            commandError: "This command doesn't exist"
-        };
+        let hasError = true;
+        const error = "Please, insert a valid command.";
 
-        if (this.isCreatingSpreadsheetCommandValid(this.state.command) != null) {
-            isError = false;
-            errors.commandError = "";
+        if (this.isCreatingSpreadsheetCommandValid(this.state.command) != null) hasError = false;
+        if (this.isInsertingNumberCommandValid(this.state.command) != null) hasError = false;
+        if (this.isSumCommandValid(this.state.command) != null) hasError = false;
+        if (this.isQuitCommandValid(this.state.command) != null) hasError = false;
+
+        if(hasError) {
+            this.setState({
+                ...this.state,
+                error
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                error: ''
+            });
         }
-
-        if (this.isInsertingNumberCommandValid(this.state.command) != null) {
-            isError = false;
-            errors.commandError = "";
-        }
-
-        if (this.isSumCommandValid(this.state.command) != null) {
-            isError = false;
-            errors.commandError = "";
-        }
-
-        if (this.isQuitCommandValid(this.state.command) != null) {
-            isError = false;
-            errors.commandError = "";
-        }
-
-        this.setState({
-            ...this.state,
-            ...errors
-        });
-        console.log(this.state);
         
-        return isError;
+        return hasError;
     };
 
     onSubmit = e => {
@@ -100,7 +89,7 @@ class InputCommand extends React.Component {
             // clear form
             this.setState({
                 command: '',
-                commandError: '',
+                error: '',
                 request: {}
             });
             this.props.onSubmit({
@@ -130,7 +119,7 @@ class InputCommand extends React.Component {
                         
                     </p>
                 </form>
-                <ErrorNotification message={this.state.commandError} />
+                <ErrorNotification message={this.state.error} />
             </div>
         );
     }
