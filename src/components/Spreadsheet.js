@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from 'react-bootstrap/Alert';
 
 class Spreadsheet extends React.Component {
     constructor(props) {
@@ -207,7 +208,7 @@ class Spreadsheet extends React.Component {
     render() {
         return (
             <div>
-                {this.state.error !== "" ? <p>{this.state.error}</p> : ''}
+                <Alert variant="danger" show={this.state.error !== ""}>{this.state.error}</Alert>
                 <pre>
                     {this.show()}
                 </pre>
