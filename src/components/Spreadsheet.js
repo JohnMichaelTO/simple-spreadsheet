@@ -1,5 +1,5 @@
 import React from 'react';
-import Alert from 'react-bootstrap/Alert';
+import ErrorNotification from './ErrorNotification'
 
 class Spreadsheet extends React.Component {
     constructor(props) {
@@ -208,7 +208,7 @@ class Spreadsheet extends React.Component {
     render() {
         return (
             <div>
-                <Alert variant="danger" show={this.state.error !== ""}>{this.state.error}</Alert>
+                <ErrorNotification message={this.state.error} />
                 <pre>
                     {this.show()}
                 </pre>
