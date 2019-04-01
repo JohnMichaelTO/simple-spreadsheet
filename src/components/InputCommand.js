@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
+import ErrorNotification from './ErrorNotification'
 
 class InputCommand extends React.Component {
     state = {
@@ -110,27 +111,27 @@ class InputCommand extends React.Component {
 
     render() {
         return (
-            <form onSubmit={e => this.onSubmit(e)}>
-                <TextField
-                    name="command"
-                    label="Command"
-                    value={this.state.command}
-                    onChange={e => this.change(e)}
-                    error={this.state.commandError !== ""}
-                    helperText={this.state.commandError}
-                />
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
+            <div>
+                <form onSubmit={e => this.onSubmit(e)}>
+                    <TextField
+                        name="command"
+                        label="Command"
+                        value={this.state.command}
+                        onChange={e => this.change(e)}
+                    />
+                    <Button variant="contained" color="primary" type="submit">
+                        Submit
+                    </Button>
 
-                <p>
-                    InputCommand: {JSON.stringify(this.state.command, null, 2)}
-                    <br />
-                    Parsing: {JSON.stringify((this.state), null, 2)}
-                    
-                </p>
-            </form>
-            
+                    <p>
+                        InputCommand: {JSON.stringify(this.state.command, null, 2)}
+                        <br />
+                        Parsing: {JSON.stringify((this.state), null, 2)}
+                        
+                    </p>
+                </form>
+                <ErrorNotification message={this.state.commandError} />
+            </div>
         );
     }
 }
