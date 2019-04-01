@@ -37,7 +37,10 @@ class Spreadsheet extends React.Component {
                     isValid = this.quit();
                     break;
                 default:
-                    console.log("Action doesn't exist");
+                    console.log("No action to be performed");
+                    this.setState({
+                        error: ''
+                    });
             }
 
             if(isValid) {

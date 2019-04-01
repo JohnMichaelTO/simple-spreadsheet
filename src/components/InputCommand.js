@@ -92,10 +92,10 @@ class InputCommand extends React.Component {
                 error: '',
                 request: {}
             });
-            this.props.onSubmit({
-                ...this.state
-            });
         }
+        this.props.onSubmit({
+            ...this.state
+        });
     };
 
     render() {
