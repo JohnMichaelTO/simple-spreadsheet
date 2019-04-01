@@ -149,6 +149,9 @@ The **Spreadsheet** component is in charge of handling a request given from the 
 * sum up values into a specific cell
 * quit the spreadsheet
 
+### ErrorNotification component
+The **ErrorNotification** component is used for displaying an error message alert. It can be used by any component by passing a message as property.
+
 The data is also handled by this component as well as showing the spreadsheet to the end-user.
 
 ### App component
