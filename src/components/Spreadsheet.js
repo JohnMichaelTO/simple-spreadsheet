@@ -1,5 +1,11 @@
 import React from 'react';
-import ErrorNotification from './ErrorNotification'
+import ErrorNotification from './ErrorNotification';
+import {
+    ACTION_CREATE,
+    ACTION_INSERT,
+    ACTION_SUM,
+    ACTION_QUIT
+} from "../util/constant";
 
 class Spreadsheet extends React.Component {
     constructor(props) {
@@ -20,19 +26,19 @@ class Spreadsheet extends React.Component {
             let isValid = false;
             
             switch (request.action) {
-                case 'C':
+                case ACTION_CREATE:
                     console.log('Create action');
                     isValid = this.create(Number(request.width), Number(request.height));
                     break;
-                case 'N':
+                case ACTION_INSERT:
                     console.log('Insert action');
                     isValid = this.insert(Number(request.x), Number(request.y), Number(request.value));
                     break;
-                case 'S':
+                case ACTION_SUM:
                     console.log('Sum action');
                     isValid = this.sum(Number(request.x1), Number(request.y1), Number(request.x2), Number(request.y2), Number(request.x3), Number(request.y3));
                     break;
-                case 'Q':
+                case ACTION_QUIT:
                     console.log('Quit action');
                     isValid = this.quit();
                     break;
