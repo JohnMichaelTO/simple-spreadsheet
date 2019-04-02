@@ -4,7 +4,15 @@ import {
     ACTION_CREATE,
     ACTION_INSERT,
     ACTION_SUM,
-    ACTION_QUIT
+    ACTION_QUIT,
+    ERROR_SPREADSHEET_SIZE_SHOULD_BE_ABOVE_ZERO,
+    ERROR_SPREADSHEET_ALREADY_OPENED,
+    ERROR_SPREADSHEET_CANNOT_INSERT,
+    ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED,
+    ERROR_SPREADSHEET_CANNOT_SUM_UP,
+    ERROR_SPREADSHEET_DOES_NOT_EXIST,
+    TABLE_CELL_MIN_VALUE,
+    TABLE_CELL_MAX_VALUE
 } from "../util/constant";
 
 class Spreadsheet extends React.Component {
@@ -61,11 +69,9 @@ class Spreadsheet extends React.Component {
     create = (width, height) => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
             if(width <= 0 || height <= 0) {
-                console.log("Error: The spreadsheet's width and height should be above 0");
-                // TODO: Handling error
-
+                console.log(ERROR_SPREADSHEET_SIZE_SHOULD_BE_ABOVE_ZERO);
                 this.setState({
-                    error: "Error: The spreadsheet's width and height should be above 0"
+                    error: ERROR_SPREADSHEET_SIZE_SHOULD_BE_ABOVE_ZERO
                 });
                 return false;
             }
@@ -84,10 +90,9 @@ class Spreadsheet extends React.Component {
             return true;
         }
 
-        console.log("Error: Can't create a spreadsheet as there is currently a spreadsheet opened");
-        // TODO: Handling error
+        console.log(ERROR_SPREADSHEET_ALREADY_OPENED);
         this.setState({
-            error: "Error: Can't create a spreadsheet as there is currently a spreadsheet opened"
+            error: ERROR_SPREADSHEET_ALREADY_OPENED
         });
         return false;
     };
@@ -99,10 +104,9 @@ class Spreadsheet extends React.Component {
             return true;
         }
 
-        console.log("Error: Can't insert");
-        // TODO: Handling error
+        console.log(ERROR_SPREADSHEET_CANNOT_INSERT);
         this.setState({
-            error: "Error: Can't insert"
+            error: ERROR_SPREADSHEET_CANNOT_INSERT
         });
         return false;
     };
@@ -127,27 +131,26 @@ class Spreadsheet extends React.Component {
                 console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
                 return true;
             } else {
-                console.log("Error: Value exceeded limits (" + totalSum + ")");
+                console.log(ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED);
                 this.setState({
-                    error: "Error: Value exceeded limits (" + totalSum + ")"
+                    error: ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED
                 });
                 return false;
             }
         }
 
-        console.log("Error: Can't sum up");
-        // TODO: Handling error
+        console.log(ERROR_SPREADSHEET_CANNOT_SUM_UP);
         this.setState({
-            error: "Error: Can't sum up"
+            error: ERROR_SPREADSHEET_CANNOT_SUM_UP
         });
         return false;
     };
 
     quit = () => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
-            console.log("Error: The spreadsheet doesn't exist");
+            console.log(ERROR_SPREADSHEET_DOES_NOT_EXIST);
             this.setState({
-                error: "Error: The spreadsheet doesn't exist"
+                error: ERROR_SPREADSHEET_DOES_NOT_EXIST
             });
             return false;
         }
@@ -179,7 +182,7 @@ class Spreadsheet extends React.Component {
     };
 
     isValueWithinLimits = value => {
-        if(value >= 0 && value <= 999) return true;
+        if(value >= TABLE_CELL_MIN_VALUE && value <= TABLE_CELL_MAX_VALUE) return true;
         return false;
     };
 

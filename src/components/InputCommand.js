@@ -2,6 +2,11 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import ErrorNotification from './ErrorNotification'
+import {
+    ERROR_SPREADSHEET_DOES_NOT_EXIST,
+    FORM_COMMAND_LABEL,
+    FORM_SUBMIT_LABEL
+} from '../util/constant';
 
 class InputCommand extends React.Component {
     state = {
@@ -59,7 +64,7 @@ class InputCommand extends React.Component {
 
     validate = () => {
         let hasError = true;
-        const error = "Please, insert a valid command.";
+        const error = ERROR_SPREADSHEET_DOES_NOT_EXIST;
 
         if (this.isCreatingSpreadsheetCommandValid(this.state.command) != null) hasError = false;
         if (this.isInsertingNumberCommandValid(this.state.command) != null) hasError = false;
@@ -104,12 +109,12 @@ class InputCommand extends React.Component {
                 <form onSubmit={e => this.onSubmit(e)}>
                     <TextField
                         name="command"
-                        label="Command"
+                        label={FORM_COMMAND_LABEL}
                         value={this.state.command}
                         onChange={e => this.change(e)}
                     />
                     <Button variant="contained" color="primary" type="submit">
-                        Submit
+                        {FORM_SUBMIT_LABEL}
                     </Button>
 
                     <p>
