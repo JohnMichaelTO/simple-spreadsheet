@@ -9,11 +9,14 @@ import {
 } from '../util/constant';
 
 class InputCommand extends React.Component {
-    state = {
-        command: '',
-        error: '',
-        request: {}
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            command: '',
+            error: '',
+            request: {}
+        };
+    }
 
     change = e => {
         //this.props.onChange({ [e.target.name]: e.target.value });

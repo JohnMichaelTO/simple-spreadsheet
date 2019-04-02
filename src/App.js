@@ -5,12 +5,15 @@ import Spreadsheet from './components/Spreadsheet';
 import CommandsTable from './components/CommandsTable'
 
 class App extends Component {
-  state = {
-    fields: {
-      command: '',
-      request: {}
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      fields: {
+        command: '',
+        request: {}
+      }
+    };
+  }
 
   onSubmit = updatedValue => {
     this.setState({
