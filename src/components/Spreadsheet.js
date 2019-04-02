@@ -35,23 +35,18 @@ class Spreadsheet extends React.Component {
             
             switch (request.action) {
                 case ACTION_CREATE:
-                    console.log('Create action');
                     isValid = this.create(Number(request.width), Number(request.height));
                     break;
                 case ACTION_INSERT:
-                    console.log('Insert action');
                     isValid = this.insert(Number(request.x), Number(request.y), Number(request.value));
                     break;
                 case ACTION_SUM:
-                    console.log('Sum action');
                     isValid = this.sum(Number(request.x1), Number(request.y1), Number(request.x2), Number(request.y2), Number(request.x3), Number(request.y3));
                     break;
                 case ACTION_QUIT:
-                    console.log('Quit action');
                     isValid = this.quit();
                     break;
                 default:
-                    console.log("No action to be performed");
                     this.setState({
                         error: ''
                     });
@@ -223,7 +218,7 @@ class Spreadsheet extends React.Component {
             output += "--\n";
             // [END] Last line to make the table
         }
-        console.log(output);
+        //console.log(output);
         return output;
     };
 
