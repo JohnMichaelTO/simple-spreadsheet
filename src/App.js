@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import InputCommand from './components/InputCommand';
 import Spreadsheet from './components/Spreadsheet';
+import CommandsTable from './components/CommandsTable'
 
 class App extends Component {
   state = {
@@ -23,6 +24,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Simple-Spreadsheet</h1>
+        <CommandsTable />
         <InputCommand onSubmit={fields => this.onSubmit(fields)} />
         <p>
           App: {JSON.stringify(this.state.fields, null, 2)}
