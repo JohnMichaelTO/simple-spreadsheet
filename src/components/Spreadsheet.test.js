@@ -43,6 +43,16 @@ it('Creating 2 spreadsheets in a row which is invalid', () => {
     expect(spreadsheet.spreadsheet).not.toBeNull();
 });
 
+it('Verify that a spreadsheet exist: spreadsheetExist()', () => {
+    let spreadsheet = new Spreadsheet();
+    let creationResult = spreadsheet.create(5, 5);
+    expect(creationResult).toBeTruthy();
+    expect(spreadsheet.width).toEqual(5);
+    expect(spreadsheet.height).toEqual(5);
+    expect(spreadsheet.spreadsheet).not.toBeNull();
+    expect(spreadsheet.spreadsheetExist()).toBeTruthy();
+});
+
 it('isCoordinatesInBoundaries()', () => {
     let spreadsheet = new Spreadsheet();
     const creationResult = spreadsheet.create(15, 15);
@@ -218,6 +228,7 @@ it('Quit valid', () => {
     expect(spreadsheet.width).toEqual(0);
     expect(spreadsheet.height).toEqual(0);
     expect(spreadsheet.spreadsheet).toBeNull();
+    expect(spreadsheet.spreadsheetExist()).not.toBeTruthy();
 });
 
 it('Quit invalid', () => {

@@ -66,6 +66,17 @@ class Spreadsheet extends React.Component {
         }
     }
 
+    spreadsheetExist = () => {
+        if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
+            console.log(ERROR_SPREADSHEET_DOES_NOT_EXIST);
+            this.setState({
+                error: ERROR_SPREADSHEET_DOES_NOT_EXIST
+            });
+            return false;
+        }
+        return true;
+    };
+
     create = (width, height) => {
         if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
             if(width <= 0 || height <= 0) {
@@ -98,69 +109,68 @@ class Spreadsheet extends React.Component {
     };
 
     insert = (x, y, value) => {
-        if(this.isCoordinatesInBoundaries(x, y) && this.isValueWithinLimits(value)) {
-            this.spreadsheet[y][x] = value;
-            console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
-            return true;
-        }
+        if(this.spreadsheetExist()) {
+            if(this.isCoordinatesInBoundaries(x, y) && this.isValueWithinLimits(value)) {
+                this.spreadsheet[y][x] = value;
+                console.log("Insert: spreadsheet[" + y + "][" + x + "] = " + value);
+                return true;
+            }
 
-        console.log(ERROR_SPREADSHEET_CANNOT_INSERT);
-        this.setState({
-            error: ERROR_SPREADSHEET_CANNOT_INSERT
-        });
+            console.log(ERROR_SPREADSHEET_CANNOT_INSERT);
+            this.setState({
+                error: ERROR_SPREADSHEET_CANNOT_INSERT
+            });
+        }
         return false;
     };
 
     sum = (x1, y1, x2, y2, x3, y3) => {
-        if(this.isCoordinatesInBoundaries(x1, y1)
-            && this.isCoordinatesInBoundaries(x2, y2)
-            && this.isCoordinatesInBoundaries(x3, y3)
-            && x1 <= x2
-            && y1 <= y2) {
+        if(this.spreadsheetExist()) {
+            if(this.isCoordinatesInBoundaries(x1, y1)
+                && this.isCoordinatesInBoundaries(x2, y2)
+                && this.isCoordinatesInBoundaries(x3, y3)
+                && x1 <= x2
+                && y1 <= y2) {
+                    
+                let totalSum = 0;
+                for(let y = y1; y <= y2; y++) {
+                    for(let x = x1; x <= x2; x++) {
+                        totalSum += Number(this.spreadsheet[y][x]);
+                        console.log("Sum up = " + totalSum + " - adding " + this.spreadsheet[y][x] + " (spreadsheet[" + y + "][" + x + "])");
+                    }
+                }
                 
-            let totalSum = 0;
-            for(let y = y1; y <= y2; y++) {
-                for(let x = x1; x <= x2; x++) {
-                    totalSum += Number(this.spreadsheet[y][x]);
-                    console.log("Sum up = " + totalSum + " - adding " + this.spreadsheet[y][x] + " (spreadsheet[" + y + "][" + x + "])");
+                if(this.isValueWithinLimits(totalSum)) {
+                    this.spreadsheet[y3][x3] = totalSum;
+                    console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
+                    return true;
+                } else {
+                    console.log(ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED);
+                    this.setState({
+                        error: ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED
+                    });
+                    return false;
                 }
             }
-            
-            if(this.isValueWithinLimits(totalSum)) {
-                this.spreadsheet[y3][x3] = totalSum;
-                console.log("Total sum inserted into spreadsheet[" + y3 + "][" + x3 + "] = " + totalSum);
-                return true;
-            } else {
-                console.log(ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED);
-                this.setState({
-                    error: ERROR_SPREADSHEET_SUM_VALUE_EXCEEDED
-                });
-                return false;
-            }
-        }
 
-        console.log(ERROR_SPREADSHEET_CANNOT_SUM_UP);
-        this.setState({
-            error: ERROR_SPREADSHEET_CANNOT_SUM_UP
-        });
+            console.log(ERROR_SPREADSHEET_CANNOT_SUM_UP);
+            this.setState({
+                error: ERROR_SPREADSHEET_CANNOT_SUM_UP
+            });
+        }
         return false;
     };
 
     quit = () => {
-        if(this.spreadsheet === null && this.width === 0 && this.height === 0) {
-            console.log(ERROR_SPREADSHEET_DOES_NOT_EXIST);
-            this.setState({
-                error: ERROR_SPREADSHEET_DOES_NOT_EXIST
-            });
-            return false;
+        if(this.spreadsheetExist()) {
+            this.width = 0;
+            this.height = 0;
+            this.spreadsheet = null;
+            
+            console.log("Quitting the spreadsheet");
+            return true;
         }
-
-        this.width = 0;
-        this.height = 0;
-        this.spreadsheet = null;
-        
-        console.log("Quitting the spreadsheet");
-        return true;
+        return false;
     };
 
     isCoordinatesInBoundaries = (x, y) => {
