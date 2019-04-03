@@ -3,8 +3,9 @@ export const ACTION_INSERT = 'N';
 export const ACTION_SUM = 'S';
 export const ACTION_QUIT = 'Q';
 
+export const TABLE_CELL_MAX_CHARACTER = 3;
 export const TABLE_CELL_MIN_VALUE = 0;
-export const TABLE_CELL_MAX_VALUE = 999;
+export const TABLE_CELL_MAX_VALUE = Math.pow(10, TABLE_CELL_MAX_CHARACTER) - 1;
 
 export const ERROR_SPREADSHEET_SIZE_SHOULD_BE_ABOVE_ZERO = "The spreadsheet's width and height should be above 0";
 export const ERROR_SPREADSHEET_ALREADY_OPENED = "Creation of a new spreadsheet failed as there is currently another spreadsheet opened";

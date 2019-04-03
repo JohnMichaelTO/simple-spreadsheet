@@ -12,7 +12,8 @@ import {
     ERROR_SPREADSHEET_CANNOT_SUM_UP,
     ERROR_SPREADSHEET_DOES_NOT_EXIST,
     TABLE_CELL_MIN_VALUE,
-    TABLE_CELL_MAX_VALUE
+    TABLE_CELL_MAX_VALUE,
+    TABLE_CELL_MAX_CHARACTER
 } from "../util/constant";
 
 class Spreadsheet extends React.Component {
@@ -174,8 +175,7 @@ class Spreadsheet extends React.Component {
     };
 
     formatNumberDisplay = number => {
-        const maxCharacterPerCell = 3;
-        const numberOfSpace = maxCharacterPerCell - String(number).length;
+        const numberOfSpace = TABLE_CELL_MAX_CHARACTER - String(number).length;
         let formattedNumber = "";
 
         for(let i = 0; i < numberOfSpace; i++) {
@@ -193,13 +193,14 @@ class Spreadsheet extends React.Component {
 
     show = () => {
         let output = "";
+        let separator = '-';
 
         if(this.width > 0 && this.height > 0 && this.spreadsheet !== null) {
             // [BEGIN] First line to make the table
             for(let i = 0; i < this.width; i++) {
-                output += "---";
+                output += separator.repeat(TABLE_CELL_MAX_CHARACTER);
             }
-            output += "--\n";
+            output += separator.repeat(2) + "\n";
             // [END] First line to make the table
 
             for(let y = 0; y < this.height; y++) {
@@ -213,9 +214,9 @@ class Spreadsheet extends React.Component {
 
             // [BEGIN] Last line to make the table
             for(let i = 0; i < this.width; i++) {
-                output += "---";
+                output += separator.repeat(TABLE_CELL_MAX_CHARACTER);
             }
-            output += "--\n";
+            output += separator.repeat(2) + "\n";
             // [END] Last line to make the table
         }
         //console.log(output);
