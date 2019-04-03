@@ -149,13 +149,16 @@ The **Spreadsheet** component is in charge of handling a request given from the 
 * sum up values into a specific cell
 * quit the spreadsheet
 
+The data is also handled by this component as well as showing the spreadsheet to the end-user.
+
 ### ErrorNotification component
 The **ErrorNotification** component is used for displaying an error message alert. It can be used by any component by passing a message as property.
 
-The data is also handled by this component as well as showing the spreadsheet to the end-user.
+### CommandsTable component
+The **CommandsTable** component displays the available commands with a description for each of them into a table.
 
 ### App component
-The **App** component is the result of both **InputCommand** and **Spreadsheet** components. It's in charge of passing the request from one to another component and acts as an intermediary.
+The **App** component is the result of all the components and especially **InputCommand** and **Spreadsheet** components. It's in charge of passing the request from one to another component and acts as an intermediary.
 
 ## Limitations
 The current limitations are the following:
@@ -167,6 +170,7 @@ The current limitations are the following:
 
 * [React](https://reactjs.org/) - The web framework used
 * [npm](https://www.npmjs.com/) - Dependency Management
+* [Material-UI](https://material-ui.com/) - React UI Framework
 
 ## Versioning
 
