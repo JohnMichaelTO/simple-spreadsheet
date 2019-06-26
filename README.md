@@ -19,7 +19,7 @@ Follow the instructions below to get a copy of the project and install it on you
 ### Installing
 1. Open a terminal and clone the repository with the following command:
 ```
-git clone https://johnmichael@bitbucket.org/johnmichael/simple-spreadsheet.git
+git clone https://github.com/JohnMichaelTO/simple-spreadsheet.git
 ```
 2. Go to the project directory:
 ```
@@ -174,8 +174,8 @@ The current limitations are the following:
 
 ## Versioning
 
-[Bitbucket](https://bitbucket.org) is used for versioning. 
-Check directly in the [repository](https://bitbucket.org/johnmichael/simple-spreadsheet/) for more details.
+[GitHub](https://www.github.com) is used for versioning. 
+Check directly in the [repository](https://github.com/JohnMichaelTO/simple-spreadsheet.git) for more details.
 
 ## Author
 
